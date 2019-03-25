@@ -1380,61 +1380,6 @@ game_ControlSystem.prototype = $extend(ash_core_System.prototype,{
 	}
 	,update: function(dt) {
 		this.phaserGame.physics.arcade.collide(this.playerSprite,this.blockSprites,$bind(this,this.onCollide));
-		if(this.mouseEnabled) {
-			var mouseCoords = whiplash_Input.mouseCoordinates;
-			var mx = this.phaserGame.camera.x + mouseCoords.x * 320 / $("canvas").width();
-			var px = this.playerSprite.position.x;
-			if(!whiplash_Input.mouseButtons.h[0]) {
-				mx = this.lastMx;
-			} else {
-				this.lastMx = mx;
-			}
-			var dx = Math.abs(px - mx);
-			var dir = px > mx ? -1 : 1;
-			var playerBody = this.playerSprite.body;
-			var playerVelocity = playerBody.velocity;
-			var vx = playerVelocity.x;
-			var vy = playerVelocity.y;
-			if(dx > game_Config.moveMinDistance) {
-				var distance = Math.min(dx,game_Config.moveMaxDistance);
-				var factor = distance / game_Config.moveMaxDistance;
-				playerVelocity.x = game_Config.moveSpeed * factor * dir;
-				if(!this.jumping) {
-					if(vy == 0) {
-						this.playerSprite.animations.play("walk",5,true);
-					}
-					this.playerSprite.animations.currentAnim.speed = 16 * factor;
-				}
-			} else {
-				playerBody.velocity.x = 0;
-				if(vy == 0) {
-					this.playerSprite.animations.play("idle",5,true);
-				}
-			}
-			this.playerEntity.get(whiplash_phaser_Transform).scale.x = dir;
-			if(this.canJump && vy == 0) {
-				if(whiplash_Input.mouseButtons.h[0]) {
-					if(this.wasNotPressed) {
-						playerBody.velocity.y = game_Config.jumpVelocity;
-						this.canJump = false;
-						this.jumping = true;
-						this.playerSprite.animations.play("jump",5,true);
-						game_AudioManager.playSound("jump");
-						this.wasNotPressed = false;
-					}
-				} else {
-					this.wasNotPressed = true;
-				}
-			}
-			if(this.jumping) {
-				if(this.jumpTime < game_Config.jumpMaxTime && whiplash_Input.mouseButtons.h[0]) {
-					playerBody.velocity.y = game_Config.jumpVelocity;
-				} else {
-					this.jumping = false;
-				}
-				this.jumpTime += dt;
-			}
-		}
 		var _this = whiplash_Input.keys;
 		if(__map_reserved[" "] != null ? _this.getReserved(" ") : _this.h[" "]) {
 			this.playerSprite.body.velocity.y = -200;

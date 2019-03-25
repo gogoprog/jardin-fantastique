@@ -8,16 +8,10 @@ class Factory {
 
     static public function preload(game:phaser.Game) {
         game.load.image("grass", "../data/textures/grass.png");
-        // game.load.image("sky", "../data/textures/blue-sky.png");
-        // game.load.tilemap("level", cast "../data/tilemaps/level.json", cast null, cast phaser.Tilemap.TILED_JSON);
-        // game.load.atlas('mario-sprites', '../data/textures/mario-sprites.png', '../data/textures/mario-sprites.json');
         game.load.spritesheet('guy', '../data/textures/guy.png', 400, 300, 2, 0, 0);
-        // game.load.bitmapFont('font', '../data/fonts/font.png', '../data/fonts/font.fnt');
     }
 
     static public function init(game:phaser.Game) {
-        // tileMap = game.add.tilemap('level');
-        // tileMap.addTilesetImage('super-mario', 'super-mario');
     }
 
     static public function createSky() {
