@@ -47,9 +47,8 @@ class ControlSystem extends ash.core.System {
     public override function update(dt:Float) {
         phaserGame.physics.arcade.collide(playerSprite, blockSprites, onCollide);
 
-
         if(whiplash.Input.keys[" "]) {
-            untyped playerSprite.body.velocity.y = -200;
+            untyped playerSprite.body.velocity.y = -500;
         }
 
         if(whiplash.Input.keys["ArrowRight"]) {
@@ -58,6 +57,16 @@ class ControlSystem extends ash.core.System {
 
         if(whiplash.Input.keys["ArrowLeft"]) {
             untyped playerSprite.body.velocity.x = -200;
+        }
+
+        untyped playerSprite.body.velocity.x /= 1.1;
+        var vx = untyped playerSprite.body.velocity.x;
+
+        if(vx > 5 || vx < -5) {
+            playerEntity.get(Transform).scale.x = vx/Math.abs(vx);
+            playerSprite.animations.play('walk', 5, true);
+        } else {
+            playerSprite.animations.play('idle', 5, true);
         }
     }
 

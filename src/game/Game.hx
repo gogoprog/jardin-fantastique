@@ -19,7 +19,7 @@ class Game {
 
     public function new() {
         new JQuery(window).on("load", function() {
-            whiplash.Lib.init(800, 600, ".root", {preload:preload, create:create, update:update, render:render});
+            whiplash.Lib.init(1024, 600, ".root", {preload:preload, create:create, update:update, render:render});
             engine = whiplash.Lib.ashEngine;
         });
     }
@@ -36,7 +36,7 @@ class Game {
         AudioManager.init(game);
         Factory.init(game);
         whiplash.Input.setup(document.querySelector(".hud"));
-        game.world.setBounds(0, 0, 760, 250);
+        game.world.setBounds(0, 0, 1024, 250);
         game.physics.startSystem(phaser.Physics.ARCADE);
         game.time.desiredFps = 60;
         game.physics.arcade.gravity.y = 800;
@@ -47,19 +47,18 @@ class Game {
         engine.addEntity(e);
 
         engine.addSystem(new ControlSystem(), 1);
+        engine.addSystem(new FlowerSystem(), 1);
+
+        untyped $global.resizeCanvas();
     }
 
 
     function update():Void {
         var dt = whiplash.Lib.getDeltaTime() / 1000;
         engine.update(dt);
-
-        if(whiplash.Input.keys["Right"]) {
-        }
     }
 
     function render():Void {
-        // engine.getSystem(ControlSystem).render();
     }
 
     static function main():Void {

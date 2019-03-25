@@ -1301,8 +1301,6 @@ game_Block.__name__ = ["game","Block"];
 game_Block.prototype = {
 	__class__: game_Block
 };
-var game_Config = function() { };
-game_Config.__name__ = ["game","Config"];
 var game_BlockNode = function() { };
 game_BlockNode.__name__ = ["game","BlockNode"];
 game_BlockNode._getComponents = function() {
@@ -1382,7 +1380,7 @@ game_ControlSystem.prototype = $extend(ash_core_System.prototype,{
 		this.phaserGame.physics.arcade.collide(this.playerSprite,this.blockSprites,$bind(this,this.onCollide));
 		var _this = whiplash_Input.keys;
 		if(__map_reserved[" "] != null ? _this.getReserved(" ") : _this.h[" "]) {
-			this.playerSprite.body.velocity.y = -200;
+			this.playerSprite.body.velocity.y = -500;
 		}
 		var _this1 = whiplash_Input.keys;
 		if(__map_reserved["ArrowRight"] != null ? _this1.getReserved("ArrowRight") : _this1.h["ArrowRight"]) {
@@ -1391,6 +1389,14 @@ game_ControlSystem.prototype = $extend(ash_core_System.prototype,{
 		var _this2 = whiplash_Input.keys;
 		if(__map_reserved["ArrowLeft"] != null ? _this2.getReserved("ArrowLeft") : _this2.h["ArrowLeft"]) {
 			this.playerSprite.body.velocity.x = -200;
+		}
+		var vx = this.playerSprite.body.velocity.x /= 1.1;
+		if(vx > 5 || vx < -5) {
+			var tmp = Math.abs(vx);
+			this.playerEntity.get(whiplash_phaser_Transform).scale.x = vx / tmp;
+			this.playerSprite.animations.play("walk",5,true);
+		} else {
+			this.playerSprite.animations.play("idle",5,true);
 		}
 	}
 	,onCollide: function(a,b) {
@@ -1439,6 +1445,8 @@ game_Factory.createLevel = function() {
 	e.add(new whiplash_phaser_Transform());
 	e.get(whiplash_phaser_Transform).position.y = 400;
 	e.get(whiplash_phaser_Transform).position.x = 0;
+	var this1 = new Phaser.Point(1.1,1);
+	e.get(whiplash_phaser_Transform).scale = this1;
 	return e;
 };
 game_Factory.createPlayer = function() {
@@ -1463,84 +1471,102 @@ game_Factory.createPlayer = function() {
 	sprite1.body.collideWorldBounds = true;
 	sprite1.body.setSize(8,15);
 	sprite1.body.offset.setTo(4,0);
-	whiplash_Lib.phaserGame.camera.follow(sprite1);
 	return e;
 };
-game_Factory.createBitmapText = function(text) {
-	var bt = new whiplash_phaser_BitmapText("font",text.toUpperCase(),12);
-	bt.anchor.set(-0.2,-0.2);
-	bt.smoothed = false;
-	return bt;
-};
-game_Factory.createLetterBlock = function(letter) {
+game_Factory.createFlower = function() {
 	var e = new ash_core_Entity();
+	e.add(new whiplash_phaser_Sprite("flower"));
 	e.add(new whiplash_phaser_Transform());
-	e.add(new whiplash_phaser_Sprite("level-sheet",43));
-	e.add(new game_Block());
-	e.add(game_Factory.createBitmapText(letter));
-	var sprite = e.get(whiplash_phaser_Sprite);
-	whiplash_Lib.phaserGame.physics.enable(sprite,Phaser.Physics.ARCADE);
-	sprite.body.setSize(game_Config.blockSize,game_Config.blockSize);
-	sprite.body.immovable = true;
-	sprite.body.moves = false;
+	e.add(new game_Flower());
 	return e;
 };
-game_Factory.createQuestionBlock = function(letter) {
-	var e = new ash_core_Entity();
-	e.add(new whiplash_phaser_Transform());
-	e.add(new whiplash_phaser_Sprite("level-sheet",13));
-	var sprite = e.get(whiplash_phaser_Sprite);
-	sprite.animations.add("idle",[13.0,40.0,41.0,42.0]);
-	sprite.animations.add("block",[43.0]);
-	sprite.animations.play("idle",5,true);
-	e.add(new game_QuestionBlock(game_Factory.createBitmapText(letter)));
-	var sprite1 = e.get(whiplash_phaser_Sprite);
-	whiplash_Lib.phaserGame.physics.enable(sprite1,Phaser.Physics.ARCADE);
-	sprite1.body.setSize(game_Config.blockSize,game_Config.blockSize);
-	sprite1.body.immovable = true;
-	sprite1.body.moves = false;
-	return e;
+var game_Flower = function() {
+	this.up = true;
+	this.time = 0;
 };
-game_Factory.createBlocks = function(input) {
-	var result = [];
-	var lines = input.split("\n");
-	var i = lines.length - 1;
-	while(i >= 0) {
-		var p = lines.length - i - 1;
-		var x = game_Config.firstCol * game_Config.blockSize;
-		var y = (game_Config.height - game_Config.firstRow) * game_Config.blockSize - p * game_Config.lineSpacing * game_Config.blockSize;
-		var advance = 0;
-		var isHidden = false;
-		var _g1 = 0;
-		var _g = lines[i].length;
-		while(_g1 < _g) {
-			var c = _g1++;
-			var $char = lines[i].charAt(c);
-			switch($char) {
-			case " ":
-				++advance;
-				break;
-			case "[":
-				isHidden = true;
-				break;
-			case "]":
-				isHidden = false;
-				break;
-			default:
-				var e = isHidden ? game_Factory.createQuestionBlock($char) : game_Factory.createLetterBlock($char);
-				e.get(whiplash_phaser_Transform).position.set(x + advance * game_Config.blockSize,y);
-				result.push(e);
-				++advance;
-			}
+game_Flower.__name__ = ["game","Flower"];
+game_Flower.prototype = {
+	__class__: game_Flower
+};
+var game_FlowerNode = function() { };
+game_FlowerNode.__name__ = ["game","FlowerNode"];
+game_FlowerNode._getComponents = function() {
+	if(game_FlowerNode._components == null) {
+		game_FlowerNode._components = new ash_ClassMap();
+		var _this = game_FlowerNode._components;
+		var k = whiplash_phaser_Transform;
+		var name = Type.getClassName(k);
+		var _this1 = _this.keyMap;
+		if(__map_reserved[name] != null) {
+			_this1.setReserved(name,k);
+		} else {
+			_this1.h[name] = k;
 		}
-		--i;
+		var _this2 = _this.valueMap;
+		if(__map_reserved[name] != null) {
+			_this2.setReserved(name,"transform");
+		} else {
+			_this2.h[name] = "transform";
+		}
+		var _this3 = game_FlowerNode._components;
+		var k1 = game_Flower;
+		var name1 = Type.getClassName(k1);
+		var _this4 = _this3.keyMap;
+		if(__map_reserved[name1] != null) {
+			_this4.setReserved(name1,k1);
+		} else {
+			_this4.h[name1] = k1;
+		}
+		var _this5 = _this3.valueMap;
+		if(__map_reserved[name1] != null) {
+			_this5.setReserved(name1,"shake");
+		} else {
+			_this5.h[name1] = "shake";
+		}
 	}
-	return result;
+	return game_FlowerNode._components;
 };
+game_FlowerNode.__super__ = ash_core_Node;
+game_FlowerNode.prototype = $extend(ash_core_Node.prototype,{
+	__class__: game_FlowerNode
+});
+var game_FlowerSystem = function() {
+	ash_tools_ListIteratingSystem.call(this,game_FlowerNode,$bind(this,this.updateNode),$bind(this,this.onNodeAdded),$bind(this,this.onNodeRemoved));
+};
+game_FlowerSystem.__name__ = ["game","FlowerSystem"];
+game_FlowerSystem.__super__ = ash_tools_ListIteratingSystem;
+game_FlowerSystem.prototype = $extend(ash_tools_ListIteratingSystem.prototype,{
+	addToEngine: function(engine) {
+		ash_tools_ListIteratingSystem.prototype.addToEngine.call(this,engine);
+		this.engine = engine;
+	}
+	,removeFromEngine: function(engine) {
+		ash_tools_ListIteratingSystem.prototype.removeFromEngine.call(this,engine);
+	}
+	,updateNode: function(node,dt) {
+		var shake = node.shake;
+		var p = node.transform.position;
+		var speed = 20;
+		shake.time += dt;
+		p.y = shake.y - (Math.sin(shake.time * speed - Math.PI / 2) + 1) * 4;
+		if(shake.time * speed > Math.PI * 2) {
+			p.y = shake.y;
+			node.entity.remove(game_Flower);
+		}
+	}
+	,onNodeAdded: function(node) {
+		var shake = node.shake;
+		var p = node.transform.position;
+		shake.y = p.y;
+	}
+	,onNodeRemoved: function(node) {
+	}
+	,__class__: game_FlowerSystem
+});
 var game_Game = function() {
 	var _gthis = this;
 	$(window).on("load",null,function() {
-		whiplash_Lib.init(800,600,".root",{ preload : $bind(_gthis,_gthis.preload), create : $bind(_gthis,_gthis.create), update : $bind(_gthis,_gthis.update), render : $bind(_gthis,_gthis.render)});
+		whiplash_Lib.init(1024,600,".root",{ preload : $bind(_gthis,_gthis.preload), create : $bind(_gthis,_gthis.create), update : $bind(_gthis,_gthis.update), render : $bind(_gthis,_gthis.render)});
 		_gthis.engine = whiplash_Lib.ashEngine;
 	});
 };
@@ -1559,7 +1585,7 @@ game_Game.prototype = {
 		game_AudioManager.init(game1);
 		game_Factory.init(game1);
 		whiplash_Input.setup(window.document.querySelector(".hud"));
-		game1.world.setBounds(0,0,760,250);
+		game1.world.setBounds(0,0,1024,250);
 		game1.physics.startSystem(Phaser.Physics.ARCADE);
 		game1.time.desiredFps = 60;
 		game1.physics.arcade.gravity.y = 800;
@@ -1568,23 +1594,16 @@ game_Game.prototype = {
 		var e1 = game_Factory.createPlayer();
 		this.engine.addEntity(e1);
 		this.engine.addSystem(new game_ControlSystem(),1);
+		this.engine.addSystem(new game_FlowerSystem(),1);
+		$global.resizeCanvas();
 	}
 	,update: function() {
 		var dt = whiplash_Lib.getDeltaTime() / 1000;
 		this.engine.update(dt);
-		var _this = whiplash_Input.keys;
-		var tmp = __map_reserved["Right"] != null ? _this.getReserved("Right") : _this.h["Right"];
 	}
 	,render: function() {
 	}
 	,__class__: game_Game
-};
-var game_QuestionBlock = function(bt) {
-	this.bt = bt;
-};
-game_QuestionBlock.__name__ = ["game","QuestionBlock"];
-game_QuestionBlock.prototype = {
-	__class__: game_QuestionBlock
 };
 var game_Shake = function() {
 	this.up = true;
@@ -3064,16 +3083,6 @@ game_AudioManager.sounds = (function($this) {
 	$r = _g;
 	return $r;
 }(this));
-game_Config.firstCol = 4;
-game_Config.firstRow = 6;
-game_Config.lineSpacing = 3;
-game_Config.blockSize = 16;
-game_Config.height = 15;
-game_Config.moveMinDistance = 8;
-game_Config.moveMaxDistance = 50;
-game_Config.moveSpeed = 110;
-game_Config.jumpVelocity = -200;
-game_Config.jumpMaxTime = 0.28;
 haxe_ds_ObjectMap.count = 0;
 js_Boot.__toStr = ({ }).toString;
 whiplash_Input.keys = new haxe_ds_StringMap();

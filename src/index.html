@@ -5,6 +5,7 @@
   <meta charset="utf-8" />
   <title>Le Jardin Fantastique</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <script src="http://localhost:35729/livereload.js"></script>
   <script src="../deps/jquery-3.3.1.min.js"></script>
   <script src="../deps/whiplash/lib/phaser.js"></script>
   <style>
@@ -57,8 +58,8 @@
         return;
       }
 
-      var rw = 320;
-      var rh = 240;
+      var rw = 1024;
+      var rh = 600;
 
       var wh = window.innerHeight;
       var ww = window.innerWidth;
@@ -85,7 +86,9 @@
     function delayResizeCanvas() {
       window.setTimeout(resizeCanvas, 500);
     }
+
     window.addEventListener('resize', delayResizeCanvas);
+
     $(function() {
       var params = window.location.search.substring(1);
 
