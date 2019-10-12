@@ -1429,6 +1429,7 @@ var game_Factory = function() { };
 game_Factory.__name__ = ["game","Factory"];
 game_Factory.preload = function(game1) {
 	game1.load.image("grass","../data/textures/grass.png");
+	game1.load.image("hero_win","../data/textures/hero_win.png");
 	game1.load.spritesheet("guy","../data/textures/guy.png",400,300,2,0,0);
 };
 game_Factory.init = function(game1) {
@@ -1456,12 +1457,27 @@ game_Factory.createPlayer = function() {
 		e.name = "player";
 		e.nameChanged.dispatch(e,previous);
 	}
-	var sprite = new whiplash_phaser_Sprite("guy");
+	var sprite = new whiplash_phaser_Sprite("hero_win");
 	e.add(sprite);
 	sprite.anchor.set(0.5,0.5);
 	e.add(new whiplash_phaser_Transform());
 	e.get(whiplash_phaser_Transform).position.y = 100;
 	e.get(whiplash_phaser_Transform).position.x = 100;
+	var sprite1 = e.get(whiplash_phaser_Sprite);
+	whiplash_Lib.phaserGame.physics.enable(sprite1,Phaser.Physics.ARCADE);
+	sprite1.body.collideWorldBounds = true;
+	sprite1.body.setSize(8,15);
+	sprite1.body.offset.setTo(4,0);
+	return e;
+};
+game_Factory.createEnemy = function() {
+	var e = new ash_core_Entity();
+	var sprite = new whiplash_phaser_Sprite("guy");
+	e.add(sprite);
+	sprite.anchor.set(0.5,0.5);
+	e.add(new whiplash_phaser_Transform());
+	e.get(whiplash_phaser_Transform).position.y = 100;
+	e.get(whiplash_phaser_Transform).position.x = 300;
 	sprite.animations.add("idle",[0]);
 	sprite.animations.add("walk",[0,1]);
 	sprite.animations.add("jump",[0,1]);
@@ -1471,6 +1487,7 @@ game_Factory.createPlayer = function() {
 	sprite1.body.collideWorldBounds = true;
 	sprite1.body.setSize(8,15);
 	sprite1.body.offset.setTo(4,0);
+	sprite1.body.x = 500;
 	return e;
 };
 game_Factory.createFlower = function() {
@@ -1593,6 +1610,9 @@ game_Game.prototype = {
 		this.engine.addEntity(e);
 		var e1 = game_Factory.createPlayer();
 		this.engine.addEntity(e1);
+		var e2 = game_Factory.createEnemy();
+		e2.get(whiplash_phaser_Transform).position.x = 300;
+		this.engine.addEntity(e2);
 		this.engine.addSystem(new game_ControlSystem(),1);
 		this.engine.addSystem(new game_FlowerSystem(),1);
 		$global.resizeCanvas();

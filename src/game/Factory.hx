@@ -9,6 +9,7 @@ class Factory {
 
     static public function preload(game:phaser.Game) {
         game.load.image("grass", "../data/textures/grass.png");
+        game.load.image("hero_win", "../data/textures/hero_win.png");
         game.load.spritesheet('guy', '../data/textures/guy.png', 400, 300, 2, 0, 0);
     }
 
@@ -35,12 +36,32 @@ class Factory {
     static public function createPlayer() {
         var e = new Entity();
         e.name = "player";
-        var sprite = new Sprite("guy");
+        var sprite = new Sprite("hero_win");
         e.add(sprite);
         sprite.anchor.set(0.5, 0.5);
         e.add(new Transform());
         e.get(Transform).position.y = 100;
         e.get(Transform).position.x = 100;
+        // sprite.animations.add("idle", untyped [0]);
+        // sprite.animations.add("walk", untyped [0, 1]);
+        // sprite.animations.add("jump", untyped [0, 1]);
+        // sprite.animations.play('walk', 5, true);
+        var sprite = e.get(Sprite);
+        whiplash.Lib.phaserGame.physics.enable(sprite, phaser.Physics.ARCADE);
+        untyped sprite.body.collideWorldBounds = true;
+        untyped sprite.body.setSize(8, 15);
+        untyped sprite.body.offset.setTo(4, 0);
+        return e;
+    }
+
+    static public function createEnemy() {
+        var e = new Entity();
+        var sprite = new Sprite("guy");
+        e.add(sprite);
+        sprite.anchor.set(0.5, 0.5);
+        e.add(new Transform());
+        e.get(Transform).position.y = 100;
+        e.get(Transform).position.x = 300;
         sprite.animations.add("idle", untyped [0]);
         sprite.animations.add("walk", untyped [0, 1]);
         sprite.animations.add("jump", untyped [0, 1]);
@@ -50,6 +71,8 @@ class Factory {
         untyped sprite.body.collideWorldBounds = true;
         untyped sprite.body.setSize(8, 15);
         untyped sprite.body.offset.setTo(4, 0);
+        untyped sprite.body.x = 500;
+        
         return e;
     }
 

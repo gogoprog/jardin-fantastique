@@ -45,6 +45,9 @@ class Game {
         engine.addEntity(e);
         var e = Factory.createPlayer();
         engine.addEntity(e);
+        var e = Factory.createEnemy();
+        e.get(Transform).position.x = 300;
+        engine.addEntity(e);
 
         engine.addSystem(new ControlSystem(), 1);
         engine.addSystem(new FlowerSystem(), 1);
