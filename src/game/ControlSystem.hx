@@ -11,7 +11,6 @@ class BlockNode extends Node<BlockNode> {
 class ControlSystem extends ash.core.System {
     private var playerEntity:Entity;
     private var playerSprite:Sprite;
-    private var phaserGame:phaser.Game;
     private var blockSprites:Array<Sprite> = [];
     private var mouseEnabled:Bool = true;
     private var canJump:Bool = false;
@@ -28,7 +27,6 @@ class ControlSystem extends ash.core.System {
         super.addToEngine(engine);
         playerEntity = engine.getEntityByName("player");
         playerSprite = playerEntity.get(Sprite);
-        phaserGame = whiplash.Lib.phaserGame;
         var list = engine.getNodeList(BlockNode);
 
         for(node in list) {
@@ -36,8 +34,8 @@ class ControlSystem extends ash.core.System {
             untyped node.sprite.entity = node.entity;
         }
 
-        untyped playerSprite.body.onWorldBounds = untyped __js__("new Phaser.Signal()");
-        untyped playerSprite.body.onWorldBounds.add(hitWorldBounds, this);
+        // untyped playerSprite.body.onWorldBounds = untyped __js__("new Phaser.Signal()");
+        // untyped playerSprite.body.onWorldBounds.add(hitWorldBounds, this);
     }
 
     public override function removeFromEngine(engine:Engine) {
@@ -45,7 +43,7 @@ class ControlSystem extends ash.core.System {
     }
 
     public override function update(dt:Float) {
-        phaserGame.physics.arcade.collide(playerSprite, blockSprites, onCollide);
+        whiplash.Lib.phaserScene.physics.collide(playerSprite, blockSprites, onCollide);
 
         if(whiplash.Input.keys[" "]) {
             untyped playerSprite.body.velocity.y = -500;
@@ -64,9 +62,9 @@ class ControlSystem extends ash.core.System {
 
         if(vx > 5 || vx < -5) {
             playerEntity.get(Transform).scale.x = vx/Math.abs(vx);
-            playerSprite.animations.play('walk', 5, true);
+            // playerSprite.animations.play('walk', 5, true);
         } else {
-            playerSprite.animations.play('idle', 5, true);
+            // playerSprite.animations.play('idle', 5, true);
         }
     }
 
@@ -81,7 +79,7 @@ class ControlSystem extends ash.core.System {
 
                 if(e.get(Shake) == null) {
                     e.add(new Shake());
-                    AudioManager.playSound("bump");
+                    whiplash.AudioManager.playSound("bump");
                 }
             }
         }
