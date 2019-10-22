@@ -16,7 +16,7 @@ import whiplash.common.components.Active;
 
 class Game extends Application {
     public function new() {
-        super(1024, 600, ".root");
+        super(Config.screenWidth, Config.screenHeight, ".root");
     }
 
     override function preload():Void {
@@ -25,13 +25,11 @@ class Game extends Application {
     }
 
     override function create():Void {
+        Factory.init(whiplash.Lib.phaserScene);
         var game = whiplash.Lib.phaserGame;
         game.sound.pauseOnBlur = false;
         AudioManager.init(whiplash.Lib.phaserScene);
         whiplash.Lib.phaserScene.cameras.main.setBounds(-1000, 0, 2000, 10000);
-        // game.physics.startSystem(phaser.Physics.ARCADE);
-        // game.time.desiredFps = 60;
-        // game.physics.arcade.gravity.y = 800;
 
         var e = Factory.createLevel();
         engine.addEntity(e);
@@ -44,7 +42,9 @@ class Game extends Application {
         engine.addSystem(new ControlSystem(), 1);
         engine.addSystem(new FlowerSystem(), 1);
 
-        untyped $global.resizeCanvas();
+        var e = Factory.createCamera();
+        engine.addEntity(e);
+        e.get(Transform).position.x = 256;
     }
 
     static function main():Void {

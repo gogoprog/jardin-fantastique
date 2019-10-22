@@ -6,9 +6,10 @@ import whiplash.math.*;
 
 class Factory {
     static public function preload(scene:phaser.Scene) {
-        // game.load.image("grass", "../data/textures/grass.png");
-        // game.load.image("hero_win", "../data/textures/hero_win.png");
         scene.load.spritesheet('guy', '../data/spritesheets/guy.png', { frameWidth: 400, frameHeight: 300, startFrame:0, endFrame:2 });
+    }
+
+    static public function init(scene:phaser.Scene) {
     }
 
     static public function createSky() {
@@ -24,7 +25,7 @@ class Factory {
         e.add(new Transform());
         e.get(Transform).position.y = 400;
         e.get(Transform).position.x = 0;
-        e.get(Transform).scale = new Point(1.1, 1);
+        e.get(Transform).scale = new Point(1, 1);
         e.get(Sprite).setOrigin(0);
         return e;
     }
@@ -77,6 +78,13 @@ class Factory {
         e.add(new Sprite("flower"));
         e.add(new Transform());
         e.add(new Flower());
+        return e;
+    }
+
+    static public function createCamera() {
+        var e = new Entity();
+        e.add(new Transform());
+        e.add(new Camera(0, 0, Config.screenWidth, Config.screenHeight));
         return e;
     }
 }
