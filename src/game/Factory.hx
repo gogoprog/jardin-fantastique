@@ -52,6 +52,13 @@ class Factory {
         return e;
     }
 
+    static public function createSprite(which) {
+        var e = new Entity();
+        e.add(new Sprite("none"));
+        e.add(new Transform());
+        return e;
+    }
+
     static public function createEnemy() {
         var e = new Entity();
         var sprite = new Sprite("guy");
