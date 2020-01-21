@@ -20,13 +20,16 @@ class Factory {
     }
 
     static public function createLevel() {
+        var tilemap:phaser.tilemaps.Tilemap;
+        tilemap = whiplash.Lib.phaserScene.add.tilemap('level');
+
+        tilemap.addTilesetImage('tiles/grass.png','grass');
+        tilemap.addTilesetImage('tiles/ground.png', 'ground');
+
         var e = new Entity();
-        e.add(new Sprite("grass"));
+        e.add(new TilemapLayer(tilemap, 0, tilemap.tilesets));
         e.add(new Transform());
-        e.get(Transform).position.y = 400;
-        e.get(Transform).position.x = 0;
-        e.get(Transform).scale = new Point(1, 1);
-        e.get(Sprite).setOrigin(0);
+        e.get(Transform).position.y = 360;
         return e;
     }
 

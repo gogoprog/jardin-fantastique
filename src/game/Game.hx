@@ -33,23 +33,23 @@ class Game extends Application {
 
         var e = Factory.createLevel();
         engine.addEntity(e);
-        var player = Factory.createPlayer();
-        engine.addEntity(player);
-        var e = Factory.createEnemy();
-        e.get(Transform).position.x = 300;
-        engine.addEntity(e);
+        // var player = Factory.createPlayer();
+        // engine.addEntity(player);
+        // var e = Factory.createEnemy();
+        // e.get(Transform).position.x = 300;
+        // engine.addEntity(e);
 
-        var cameraTarget = Factory.createSprite("none");
-        cameraTarget.get(Transform).position.setTo(300, 300);
-        engine.addEntity(cameraTarget);
+        // var cameraTarget = Factory.createSprite("none");
+        // cameraTarget.get(Transform).position.setTo(300, 300);
+        // engine.addEntity(cameraTarget);
 
-        engine.addSystem(new ControlSystem(), 1);
-        engine.addSystem(new FlowerSystem(), 1);
+        // engine.addSystem(new ControlSystem(), 1);
+        // engine.addSystem(new FlowerSystem(), 1);
 
-        var e = Factory.createCamera();
-        e.get(Transform).position.y = 300;
-        engine.addEntity(e);
-        e.get(Camera).startFollow(cameraTarget.get(Sprite), false, 1, 0);
+        // var e = Factory.createCamera();
+        // e.get(Transform).position.y = 300;
+        // engine.addEntity(e);
+        // e.get(Camera).startFollow(cameraTarget.get(Sprite), false, 1, 0);
     }
 
     static function main():Void {
