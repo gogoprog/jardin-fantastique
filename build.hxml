@@ -4,6 +4,7 @@
 -cp deps/whiplash/deps/haxe-phaser3/src
 -cp deps/whiplash/deps/Ash-Haxe/src
 -cp deps/whiplash/deps/jquery-uipages/src
+-cp deps/whiplash-platformer/src
 -js build/generated.js
 -main game.Game
 -D phaser
