@@ -46,6 +46,8 @@ class Factory {
         // sprite.animations.add("walk", untyped [0, 1]);
         // sprite.animations.add("jump", untyped [0, 1]);
         // sprite.animations.play('walk', 5, true);
+        e.add(new whiplash.platformer.Input());
+        e.add(new whiplash.platformer.Character());
         var sprite = e.get(Sprite);
         whiplash.Lib.phaserScene.physics.add.existing(sprite);
         untyped sprite.body.collideWorldBounds = true;
