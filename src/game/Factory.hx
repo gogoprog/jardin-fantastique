@@ -22,10 +22,8 @@ class Factory {
     static public function createLevel() {
         var tilemap:phaser.tilemaps.Tilemap;
         tilemap = whiplash.Lib.phaserScene.add.tilemap('level');
-
-        tilemap.addTilesetImage('tiles/grass.png','grass');
+        tilemap.addTilesetImage('tiles/grass.png', 'grass');
         tilemap.addTilesetImage('tiles/ground.png', 'ground');
-
         var e = new Entity();
         e.add(new TilemapLayer(tilemap, 0, tilemap.tilesets));
         e.add(new Transform());
@@ -38,22 +36,13 @@ class Factory {
         e.name = "player";
         var sprite = new Sprite("hero_win");
         e.add(sprite);
-        sprite.setOrigin(0.5, 0.5);
         e.add(new Transform());
         e.get(Transform).position.y = 100;
-        e.get(Transform).position.x = 100;
-        // sprite.animations.add("idle", untyped [0]);
-        // sprite.animations.add("walk", untyped [0, 1]);
-        // sprite.animations.add("jump", untyped [0, 1]);
-        // sprite.animations.play('walk', 5, true);
+        e.get(Transform).position.x = 300;
+        e.get(Transform).scale.setTo(0.5, 0.5);
         e.add(new whiplash.platformer.Input());
         e.add(new whiplash.platformer.Character());
-        var sprite = e.get(Sprite);
-        whiplash.Lib.phaserScene.physics.add.existing(sprite);
-        untyped sprite.body.collideWorldBounds = true;
-        sprite.body.setSize(8, 15);
-        sprite.body.setGravity(0, 300);
-        sprite.body.setAllowGravity(true);
+        e.get(whiplash.platformer.Character).size.setTo(250, 460);
         return e;
     }
 

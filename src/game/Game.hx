@@ -35,11 +35,8 @@ class Game extends Application {
 
         var e = Factory.createLevel();
         engine.addEntity(e);
-        // var player = Factory.createPlayer();
-        // engine.addEntity(player);
-        // var e = Factory.createEnemy();
-        // e.get(Transform).position.x = 300;
-        // engine.addEntity(e);
+        var player = Factory.createPlayer();
+        engine.addEntity(player);
 
         // var cameraTarget = Factory.createSprite("none");
         // cameraTarget.get(Transform).position.setTo(300, 300);
