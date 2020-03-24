@@ -22,8 +22,8 @@ class Factory {
     static public function createLevel() {
         var tilemap:phaser.tilemaps.Tilemap;
         tilemap = whiplash.Lib.phaserScene.add.tilemap('level');
-        tilemap.addTilesetImage('tiles/grass.png', 'grass');
-        tilemap.addTilesetImage('tiles/ground.png', 'ground');
+        tilemap.addTilesetImage('../textures/grass.png', 'grass');
+        tilemap.addTilesetImage('../textures/ground.png', 'ground');
         var e = new Entity();
         e.add(new TilemapLayer(tilemap, 0, tilemap.tilesets));
         e.add(new Transform());
