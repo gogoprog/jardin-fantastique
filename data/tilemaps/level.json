@@ -39,12 +39,6 @@
             },
          "margin":0,
          "name":"tiles",
-         "properties":[
-                {
-                 "name":"collides",
-                 "type":"bool",
-                 "value":true
-                }],
          "spacing":0,
          "tilecount":2,
          "tileheight":64,
@@ -59,7 +53,13 @@
                  "id":1,
                  "image":"..\/textures\/ground.png",
                  "imageheight":64,
-                 "imagewidth":64
+                 "imagewidth":64,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"string",
+                         "value":"true"
+                        }]
                 }],
          "tilewidth":64
         }],
