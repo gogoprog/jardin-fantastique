@@ -19,13 +19,13 @@ class Factory {
         return e;
     }
 
-    static public function createLevel() {
+    static public function createLevel(layer) {
         var tilemap:phaser.tilemaps.Tilemap;
         tilemap = whiplash.Lib.phaserScene.add.tilemap('level');
         tilemap.addTilesetImage('../textures/grass.png', 'grass');
         tilemap.addTilesetImage('../textures/ground.png', 'ground');
         var e = new Entity();
-        e.add(new TilemapLayer(tilemap, 0, tilemap.tilesets));
+        e.add(new TilemapLayer(tilemap, layer, tilemap.tilesets));
         e.add(new Transform());
         e.get(Transform).position.y = 360;
         return e;
@@ -42,7 +42,7 @@ class Factory {
         e.get(Transform).scale.setTo(0.5, 0.5);
         e.add(new whiplash.platformer.Input());
         e.add(new whiplash.platformer.Character());
-        e.get(whiplash.platformer.Character).size.setTo(250, 460);
+        e.get(whiplash.platformer.Character).size.setTo(150, 430);
         return e;
     }
 
