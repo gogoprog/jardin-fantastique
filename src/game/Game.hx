@@ -33,9 +33,9 @@ class Game extends Application {
 
         whiplash.platformer.Lib.init(this);
 
-        var e = Factory.createLevel(0);
+        var e = Factory.createLevel(0, true);
         engine.addEntity(e);
-        var e = Factory.createLevel(1);
+        var e = Factory.createLevel(1, false);
         engine.addEntity(e);
         var player = Factory.createPlayer();
         engine.addEntity(player);
