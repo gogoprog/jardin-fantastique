@@ -32,6 +32,7 @@ class Factory {
         if(collision) {
             e.add(new whiplash.platformer.WorldCollision());
         }
+
         return e;
     }
 
@@ -48,9 +49,7 @@ class Factory {
         e.add(new whiplash.platformer.Character());
         e.get(whiplash.platformer.Character).size.setTo(100, 360);
         e.get(whiplash.platformer.Character).offset.setTo(115, 80);
-
         e.add(new whiplash.platformer.CameraTarget());
-
         return e;
     }
 
@@ -66,15 +65,18 @@ class Factory {
         e.add(new Transform());
         e.add(new Camera(0, 0, Config.screenWidth, Config.screenHeight));
         e.add(new whiplash.platformer.Camera());
+
+        untyped window.c = e.get(Camera);
         return e;
     }
 
-    static public function createParallax(texture, factor) {
+    static public function createParallax(texture, factor, scale = 1.0) {
         var e = new Entity();
         e.add(new TileSprite(1024, 512, texture));
-        e.add(new whiplash.platformer.Parallax(factor));
+        e.add(new whiplash.platformer.Parallax(factor, scale));
         e.add(new Transform());
         e.get(Transform).position.x = -2;
+        e.get(TileSprite).tint = 0x668822;
         return e;
     }
 }

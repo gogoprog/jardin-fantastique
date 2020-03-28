@@ -16,7 +16,15 @@ import whiplash.common.components.Active;
 
 class Game extends Application {
     public function new() {
-        super(Config.screenWidth, Config.screenHeight, ".root", phaser.scale.scalemodes.NONE);
+        var config = {
+            render:{
+                transparent:false
+            },
+            scale : {
+                mode: phaser.scale.scalemodes.NONE
+            },
+        };
+        super(Config.screenWidth, Config.screenHeight, ".root", config); //phaser.scale.scalemodes.NONE, {render:{transparent:false}});
     }
 
     override function preload():Void {
@@ -30,9 +38,13 @@ class Game extends Application {
         game.sound.pauseOnBlur = false;
         AudioManager.init(whiplash.Lib.phaserScene);
 
+        whiplash.Lib.phaserScene.cameras.main.setBackgroundColor('#000000');
+
         whiplash.platformer.Lib.init(this);
 
-        var e = Factory.createParallax("bg1", 0);
+        var e = Factory.createParallax("bg1", 0, 0.5);
+        engine.addEntity(e);
+        var e = Factory.createParallax("bg1", 0.5);
         engine.addEntity(e);
 
         var e = Factory.createLevel(0, true);
