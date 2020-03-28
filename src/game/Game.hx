@@ -47,10 +47,8 @@ class Game extends Application {
         // engine.addSystem(new ControlSystem(), 1);
         // engine.addSystem(new FlowerSystem(), 1);
 
-        // var e = Factory.createCamera();
-        // e.get(Transform).position.y = 300;
-        // engine.addEntity(e);
-        // e.get(Camera).startFollow(cameraTarget.get(Sprite), false, 1, 0);
+        var e = Factory.createCamera();
+        engine.addEntity(e);
     }
 
     static function main():Void {

@@ -48,6 +48,9 @@ class Factory {
         e.add(new whiplash.platformer.Character());
         e.get(whiplash.platformer.Character).size.setTo(100, 360);
         e.get(whiplash.platformer.Character).offset.setTo(115, 80);
+
+        e.add(new whiplash.platformer.CameraTarget());
+
         return e;
     }
 
@@ -91,6 +94,7 @@ class Factory {
         var e = new Entity();
         e.add(new Transform());
         e.add(new Camera(0, 0, Config.screenWidth, Config.screenHeight));
+        e.add(new whiplash.platformer.Camera());
         return e;
     }
 }
