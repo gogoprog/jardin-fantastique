@@ -68,4 +68,13 @@ class Factory {
         e.add(new whiplash.platformer.Camera());
         return e;
     }
+
+    static public function createParallax(texture, factor) {
+        var e = new Entity();
+        e.add(new TileSprite(1024, 512, texture));
+        e.add(new whiplash.platformer.Parallax(factor));
+        e.add(new Transform());
+        e.get(Transform).position.x = -2;
+        return e;
+    }
 }

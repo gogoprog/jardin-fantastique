@@ -29,9 +29,11 @@ class Game extends Application {
         var game = whiplash.Lib.phaserGame;
         game.sound.pauseOnBlur = false;
         AudioManager.init(whiplash.Lib.phaserScene);
-        whiplash.Lib.phaserScene.cameras.main.setBounds(-1000, 0, 2000, 10000);
 
         whiplash.platformer.Lib.init(this);
+
+        var e = Factory.createParallax("bg1", 0);
+        engine.addEntity(e);
 
         var e = Factory.createLevel(0, true);
         engine.addEntity(e);
