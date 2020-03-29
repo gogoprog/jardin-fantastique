@@ -42,9 +42,11 @@ class Game extends Application {
 
         whiplash.platformer.Lib.init(this);
 
-        var e = Factory.createParallax("bg1", 0, 0.5);
+        var e = Factory.createParallax("bg1", 0.1, 0.5);
+        e.get(whiplash.platformer.Parallax).offset.y = 300;
         engine.addEntity(e);
         var e = Factory.createParallax("bg1", 0.5);
+        e.get(whiplash.platformer.Parallax).offset.y = 256;
         engine.addEntity(e);
 
         var e = Factory.createLevel(0, true);
@@ -53,13 +55,6 @@ class Game extends Application {
         engine.addEntity(e);
         var player = Factory.createPlayer();
         engine.addEntity(player);
-
-        // var cameraTarget = Factory.createSprite("none");
-        // cameraTarget.get(Transform).position.setTo(300, 300);
-        // engine.addEntity(cameraTarget);
-
-        // engine.addSystem(new ControlSystem(), 1);
-        // engine.addSystem(new FlowerSystem(), 1);
 
         var e = Factory.createCamera();
         engine.addEntity(e);
