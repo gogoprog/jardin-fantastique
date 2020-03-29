@@ -34,10 +34,10 @@ class Game extends Application {
     }
 
     override function create():Void {
-        Factory.init(whiplash.Lib.phaserScene);
         var game = whiplash.Lib.phaserGame;
         game.sound.pauseOnBlur = false;
         AudioManager.init(whiplash.Lib.phaserScene);
+        Factory.init(whiplash.Lib.phaserScene);
 
         whiplash.platformer.Lib.init(this);
 

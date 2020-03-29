@@ -3,13 +3,30 @@ package game;
 import ash.core.Entity;
 import whiplash.phaser.*;
 import whiplash.math.*;
+import whiplash.platformer.Character;
 
 class Factory {
     static public function preload(scene:phaser.Scene) {
-        scene.load.spritesheet('guy', '../data/spritesheets/guy.png', { frameWidth: 400, frameHeight: 300, startFrame:0, endFrame:2 });
     }
 
     static public function init(scene:phaser.Scene) {
+        scene.anims.create({
+            key: 'hero_idle',
+            frames: [
+            untyped { key: 'hero_idle' },
+            ],
+            frameRate: 5,
+            repeat: -1
+        });
+        scene.anims.create({
+            key: 'hero_walk',
+            frames: [
+            untyped { key: 'hero_walk' },
+            untyped { key: 'hero_walk2' },
+            ],
+            frameRate: 5,
+            repeat: -1
+        });
     }
 
     static public function createSky() {
@@ -51,6 +68,9 @@ class Factory {
         e.get(whiplash.platformer.Character).size.setTo(100, 360);
         e.get(whiplash.platformer.Character).offset.setTo(115, 80);
         e.add(new whiplash.platformer.CameraTarget());
+        var anims = e.get(whiplash.platformer.Character).animations;
+        anims[Idle] = "hero_idle";
+        anims[Walk] = "hero_walk";
         return e;
     }
 
@@ -66,12 +86,9 @@ class Factory {
         e.add(new Transform());
         e.add(new Camera(0, 0, Config.screenWidth, Config.screenHeight));
         e.add(new whiplash.platformer.Camera());
-
         e.get(Camera).setBackgroundColor("#2f471f");
         e.get(whiplash.platformer.Camera).maxY = 64;
-
         untyped window.c = e.get(Camera);
-
         return e;
     }
 
