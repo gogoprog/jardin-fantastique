@@ -67,14 +67,17 @@ class Factory {
         e.add(new Camera(0, 0, Config.screenWidth, Config.screenHeight));
         e.add(new whiplash.platformer.Camera());
 
+        e.get(Camera).setBackgroundColor("#2f471f");
         e.get(whiplash.platformer.Camera).maxY = 64;
+
+        untyped window.c = e.get(Camera);
 
         return e;
     }
 
     static public function createParallax(texture, factor, scale = 1.0) {
         var e = new Entity();
-        e.add(new TileSprite(1280, 512, texture));
+        e.add(new TileSprite(Std.int(1280 / scale), 512, texture));
         e.add(new whiplash.platformer.Parallax(factor));
         e.add(new Transform());
         e.get(Transform).position.x = -2;

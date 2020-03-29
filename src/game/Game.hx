@@ -23,8 +23,9 @@ class Game extends Application {
             scale : {
                 mode: phaser.scale.scalemodes.NONE
             },
+            backgroundColor:"#2f471f"
         };
-        super(Config.screenWidth, Config.screenHeight, ".root", config); //phaser.scale.scalemodes.NONE, {render:{transparent:false}});
+        super(Config.screenWidth, Config.screenHeight, ".root", config);
     }
 
     override function preload():Void {
@@ -37,8 +38,6 @@ class Game extends Application {
         var game = whiplash.Lib.phaserGame;
         game.sound.pauseOnBlur = false;
         AudioManager.init(whiplash.Lib.phaserScene);
-
-        whiplash.Lib.phaserScene.cameras.main.setBackgroundColor('#000000');
 
         whiplash.platformer.Lib.init(this);
 
