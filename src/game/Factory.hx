@@ -65,7 +65,7 @@ class Factory {
         e.get(Transform).scale.setTo(0.3, 0.3);
         e.add(new whiplash.platformer.Input());
         e.add(new whiplash.platformer.Character());
-        e.get(whiplash.platformer.Character).size.setTo(100, 360);
+        e.get(whiplash.platformer.Character).size.setTo(100, 378);
         e.get(whiplash.platformer.Character).offset.setTo(115, 80);
         e.add(new whiplash.platformer.CameraTarget());
         var anims = e.get(whiplash.platformer.Character).animations;
