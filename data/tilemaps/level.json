@@ -48,6 +48,18 @@
                  "width":64,
                  "x":2172.90797546012,
                  "y":267.58282208589
+                }, 
+                {
+                 "gid":4,
+                 "height":82,
+                 "id":5,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":55,
+                 "x":2015.94478527607,
+                 "y":274.128834355828
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -86,7 +98,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":5,
+ "nextobjectid":6,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.3.2",
@@ -132,6 +144,35 @@
                  "imagewidth":64
                 }],
          "tilewidth":64
+        }, 
+        {
+         "columns":0,
+         "firstgid":4,
+         "grid":
+            {
+             "height":1,
+             "orientation":"orthogonal",
+             "width":1
+            },
+         "margin":0,
+         "name":"items",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":82,
+         "tiles":[
+                {
+                 "id":0,
+                 "image":"..\/textures\/keyh.png",
+                 "imageheight":82,
+                 "imagewidth":55,
+                 "properties":[
+                        {
+                         "name":"entity",
+                         "type":"string",
+                         "value":"key"
+                        }]
+                }],
+         "tilewidth":55
         }],
  "tilewidth":64,
  "type":"map",
