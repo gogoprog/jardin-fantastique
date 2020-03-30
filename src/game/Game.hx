@@ -48,6 +48,9 @@ class Game extends Application {
         e.get(whiplash.platformer.Parallax).offset.y = 256;
         engine.addEntity(e);
 
+        var e = Factory.createObjectHandler();
+        engine.addEntity(e);
+
         var e = Factory.createLevel(0, true);
         engine.addEntity(e);
         var player = Factory.createPlayer();
