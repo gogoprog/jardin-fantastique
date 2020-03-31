@@ -16,9 +16,7 @@ class Factory {
         tilemap.addTilesetImage('../textures/grass.png', 'grass');
         tilemap.addTilesetImage('../textures/ground.png', 'ground');
         tilemap.addTilesetImage('../textures/plainground.png', 'plainground');
-
         untyped window.t = tilemap;
-
         scene.anims.create({
             key: 'hero_idle',
             frames: [
@@ -62,7 +60,13 @@ class Factory {
         var e = new Entity();
         e.add(new whiplash.platformer.WorldObjectHandler(tilemap.objects, function(obj) {
             trace(obj);
-        }));
+            if(obj.entity) {
+                var e = objectHandlers[cast obj.entity](obj);
+                whiplash.Lib.ashEngine.addEntity(e);
+            }
+
+            return true;
+        }, 1024));
         return e;
     }
 
@@ -114,4 +118,21 @@ class Factory {
         e.get(Transform).scale.setTo(scale, scale);
         return e;
     }
+
+    static private var objectHandlers:Map<String, Dynamic->Entity> = [
+    "key" => function(obj) {
+        trace(obj);
+        var e = new Entity();
+        e.add(new Sprite("key"));
+        e.add(new Transform());
+        return e;
+    },
+    "coffre" => function(obj) {
+        trace(obj);
+        var e = new Entity();
+        e.add(new Sprite("coffre"));
+        e.add(new Transform());
+        return e;
+    }
+            ];
 }
