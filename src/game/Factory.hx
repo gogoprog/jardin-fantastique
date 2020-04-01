@@ -58,7 +58,7 @@ class Factory {
 
     static public function createObjectHandler() {
         var e = new Entity();
-        e.add(new whiplash.platformer.WorldObjectHandler(tilemap.objects, function(obj) {
+        e.add(new whiplash.platformer.WorldObjectHandler(tilemap.objects, function(obj, props) {
             trace(obj);
             if(obj.entity) {
                 var e = objectHandlers[cast obj.entity](obj);
