@@ -51,11 +51,11 @@ class Game extends Application {
         var e = Factory.createObjectHandler();
         engine.addEntity(e);
 
-        var e = Factory.createLevel(0, true);
+        var e = Factory.createLevel(0, true, 10);
         engine.addEntity(e);
         var player = Factory.createPlayer();
         engine.addEntity(player);
-        var e = Factory.createLevel(1, false);
+        var e = Factory.createLevel(1, false, 10);
         engine.addEntity(e);
 
         var e = Factory.createCamera();

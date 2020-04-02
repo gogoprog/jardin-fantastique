@@ -43,9 +43,10 @@ class Factory {
         return e;
     }
 
-    static public function createLevel(layer, collision:Bool) {
+    static public function createLevel(layer, collision:Bool, depth:Int) {
         var e = new Entity();
         e.add(new TilemapLayer(tilemap, layer, tilemap.tilesets));
+        e.get(TilemapLayer).setDepth(depth);
         e.add(new Transform());
         e.get(Transform).position.y = 360;
 
@@ -81,6 +82,7 @@ class Factory {
         var e = new Entity();
         e.name = "player";
         var sprite = new Sprite("hero_idle");
+        sprite.setDepth(9);
         e.add(sprite);
         e.add(new Transform());
         e.get(Transform).position.y = 100;
@@ -132,6 +134,7 @@ class Factory {
     },
     "coffre" => function(e, obj, props) {
         e.add(new Sprite("coffre"));
+        e.get(Sprite).setDepth(8);
         return e;
     }
             ];
