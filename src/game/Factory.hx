@@ -56,12 +56,19 @@ class Factory {
         return e;
     }
 
+    static public function createObjectEntity(obj, props):Entity {
+        var e = new Entity();
+        var transform = new Transform(obj.x + tilemap.tileWidth / 2, 360 + obj.y - tilemap.tileHeight / 2);
+        e.add(transform);
+        return e;
+    }
+
     static public function createObjectHandler() {
         var e = new Entity();
         e.add(new whiplash.platformer.WorldObjectHandler(tilemap.objects, function(obj, props) {
-            trace(obj);
-            if(obj.entity) {
-                var e = objectHandlers[cast obj.entity](obj);
+            if(props.entity) {
+                var e = createObjectEntity(obj, props);
+                objectHandlers[cast props.entity](e, obj, props);
                 whiplash.Lib.ashEngine.addEntity(e);
             }
 
@@ -119,19 +126,12 @@ class Factory {
         return e;
     }
 
-    static private var objectHandlers:Map<String, Dynamic->Entity> = [
-    "key" => function(obj) {
-        trace(obj);
-        var e = new Entity();
-        e.add(new Sprite("key"));
-        e.add(new Transform());
-        return e;
+    static private var objectHandlers:Map<String, Entity->Dynamic->Dynamic->Void> = [
+    "key" => function(e, obj, props) {
+        e.add(new Sprite("keyh"));
     },
-    "coffre" => function(obj) {
-        trace(obj);
-        var e = new Entity();
+    "coffre" => function(e, obj, props) {
         e.add(new Sprite("coffre"));
-        e.add(new Transform());
         return e;
     }
             ];
