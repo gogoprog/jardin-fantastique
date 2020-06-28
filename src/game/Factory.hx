@@ -89,9 +89,12 @@ class Factory {
         e.get(Transform).position.x = 300;
         e.get(Transform).scale.setTo(0.3, 0.3);
         e.add(new whiplash.platformer.Input());
-        e.add(new whiplash.platformer.Character());
-        e.get(whiplash.platformer.Character).size.setTo(100, 378);
-        e.get(whiplash.platformer.Character).offset.setTo(115, 80);
+        var character = new whiplash.platformer.Character();
+        e.add(character);
+        character.size.setTo(100, 378);
+        character.offset.setTo(115, 80);
+        character.jumpSpeed = -600;
+        character.maximumSpeed = 150;
         e.add(new whiplash.platformer.CameraTarget());
         var anims = e.get(whiplash.platformer.Character).animations;
         anims[Idle] = "hero_idle";
