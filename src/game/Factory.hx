@@ -91,10 +91,12 @@ class Factory {
         e.add(new whiplash.platformer.Input());
         var character = new whiplash.platformer.Character();
         e.add(character);
-        character.size.setTo(100, 378);
-        character.offset.setTo(115, 80);
         character.jumpSpeed = -600;
         character.maximumSpeed = 150;
+        var box = new whiplash.platformer.Box();
+        box.size.setTo(100, 378);
+        box.offset.setTo(115, 80);
+        e.add(box);
         e.add(new whiplash.platformer.CameraTarget());
         var anims = e.get(whiplash.platformer.Character).animations;
         anims[Idle] = "hero_idle";
