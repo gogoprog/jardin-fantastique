@@ -26,6 +26,14 @@ class Factory {
             repeat: -1
         });
         scene.anims.create({
+            key: 'hero_punch',
+            frames: [
+            untyped { key: 'hero_punch' },
+            ],
+            frameRate: 5,
+            repeat: 0
+        });
+        scene.anims.create({
             key: 'hero_walk',
             frames: [
             untyped { key: 'hero_walk' },
@@ -93,6 +101,9 @@ class Factory {
         e.add(character);
         character.jumpSpeed = -600;
         character.maximumSpeed = 150;
+        character.onAction = function(entity, action) {
+            trace("punch!");
+        };
         var box = new whiplash.platformer.Box();
         box.size.setTo(100, 378);
         box.offset.setTo(115, 80);
@@ -101,6 +112,7 @@ class Factory {
         var anims = e.get(whiplash.platformer.Character).animations;
         anims[Idle] = "hero_idle";
         anims[Walk] = "hero_walk";
+        anims[Action("punch")] = "hero_punch";
         return e;
     }
 
