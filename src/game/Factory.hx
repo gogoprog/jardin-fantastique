@@ -21,6 +21,7 @@ class Factory {
             key: 'hero_idle',
             frames: [
             untyped { key: 'hero_idle' },
+            untyped { key: 'hero_idle2' },
             ],
             frameRate: 5,
             repeat: -1
@@ -38,8 +39,10 @@ class Factory {
             frames: [
             untyped { key: 'hero_walk' },
             untyped { key: 'hero_walk2' },
+            untyped { key: 'hero_walk3' },
+            untyped { key: 'hero_walk4' },
             ],
-            frameRate: 5,
+            frameRate: 10,
             repeat: -1
         });
     }
