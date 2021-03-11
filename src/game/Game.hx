@@ -60,6 +60,11 @@ class Game extends Application {
 
         var e = Factory.createCamera();
         engine.addEntity(e);
+
+        var ingameState = createState("ingame");
+        ingameState.addInstance(new game.BounceSystem());
+
+        changeState("ingame");
     }
 
     static function main():Void {

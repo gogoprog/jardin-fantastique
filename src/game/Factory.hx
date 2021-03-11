@@ -103,7 +103,7 @@ class Factory {
         var character = new whiplash.platformer.Character();
         e.add(character);
         character.jumpSpeed = -600;
-        character.maximumSpeed = 150;
+        character.maximumSpeed = 350;
         character.onAction = function(entity, action) {
             trace("punch!");
         };
@@ -151,6 +151,7 @@ class Factory {
     static private var objectHandlers:Map<String, Entity->Dynamic->Dynamic->Void> = [
     "key" => function(e, obj, props) {
         e.add(new Sprite("keyh"));
+        e.add(new Bounce());
     },
     "coffre" => function(e, obj, props) {
         e.add(new Sprite("coffre"));
