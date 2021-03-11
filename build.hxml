@@ -6,7 +6,7 @@
 -cp deps/whiplash/deps/jquery-uipages/src
 -cp deps/whiplash-platformer/src
 -js build/generated.js
--lib hx3compat
+-lib jQueryExtern
 -main game.Game
 -D phaser
 -D dataPath=./data
