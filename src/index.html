@@ -14,11 +14,14 @@
     body {
       margin: 0;
       height: 100%;
-      overflow: hidden
+      overflow: hidden;
+    }
+
+    body {
+      background-color: #2f471f;
     }
 
     .root,
-    .background,
     .pages,
     .pages>div {
       width: 100%;
@@ -29,6 +32,14 @@
       overflow: hidden;
       user-select: none;
       color: white;
+    }
+
+    .root {
+      max-width: 160vh;
+      max-height: 62.5vw;
+      transform: translate(-50%, -50%);
+      top:50%;
+      left:50%;
     }
 
     .pages>div {
@@ -50,7 +61,7 @@
 
     .menu .title {
       position: absolute;
-      background: url("../data/ui/title.webp") no-repeat center;
+      background: url("../data/ui/title.webp") no-repeat center/contain;
       transform: translate(-50%, -50%);
       top: 10%;
       left: 50%;
@@ -60,7 +71,7 @@
 
     .menu .play {
       position: absolute;
-      background: url("../data/ui/play.webp") no-repeat center;
+      background: url("../data/ui/play.webp") no-repeat center/contain;
       transform: translate(-50%, -50%);
       top: 50%;
       left: 50%;
