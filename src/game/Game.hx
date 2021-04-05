@@ -65,6 +65,14 @@ class Game extends Application {
         ingameState.addInstance(new game.BounceSystem());
 
         changeState("ingame");
+
+        {
+            createUiState("menu", ".menu");
+            createUiState("hud", ".hud");
+
+            changeUiState("menu");
+        }
+
     }
 
     static function main():Void {
