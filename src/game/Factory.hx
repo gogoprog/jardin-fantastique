@@ -137,13 +137,13 @@ class Factory {
         return e;
     }
 
-    static public function createParallax(texture, factor, scale = 1.0) {
+    static public function createParallax(texture, factor, scale = 1.0, tint = 0x668822) {
         var e = new Entity();
         e.add(new TileSprite(Std.int(1280 / scale), 512, texture));
         e.add(new whiplash.platformer.Parallax(factor));
         e.add(new Transform());
         e.get(Transform).position.x = -2;
-        e.get(TileSprite).tint = 0x668822;
+        e.get(TileSprite).tint = tint;
         e.get(Transform).scale.setTo(scale, scale);
         return e;
     }

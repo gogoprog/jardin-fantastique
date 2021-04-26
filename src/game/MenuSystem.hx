@@ -19,10 +19,13 @@ class MenuSystem extends whiplash.UiSystem {
         this.engine = engine;
         super.addToEngine(engine);
         engine.removeAllEntities();
-        var e = Factory.createParallax("bg1", 0.25, 1);
+        var e = Factory.createParallax("bg1", 0.2, 0.8, 0x222211);
         e.get(whiplash.platformer.Parallax).offset.y = 300;
         engine.addEntity(e);
-        var e = Factory.createParallax("bg1", 0.5, 2);
+        var e = Factory.createParallax("bg1", 0.3, 1.1, 0x333311);
+        e.get(whiplash.platformer.Parallax).offset.y = 300;
+        engine.addEntity(e);
+        var e = Factory.createParallax("bg1", 0.5, 1.8);
         e.get(whiplash.platformer.Parallax).offset.y = 256;
         engine.addEntity(e);
         var e = Factory.createCamera();

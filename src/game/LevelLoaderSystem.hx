@@ -10,7 +10,7 @@ class LevelLoaderSystem extends ash.core.System {
     public override function addToEngine(engine:Engine) {
         super.addToEngine(engine);
         engine.removeAllEntities();
-        var e = Factory.createParallax("bg1", 0.1, 0.5);
+        var e = Factory.createParallax("bg1", 0.1, 0.5, 0x446611);
         e.get(whiplash.platformer.Parallax).offset.y = 300;
         engine.addEntity(e);
         var e = Factory.createParallax("bg1", 0.5);
