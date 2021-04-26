@@ -5,10 +5,10 @@
   <meta charset="utf-8" />
   <title>Le Jardin Fantastique</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  <script src="http://localhost:35729/livereload.js"></script>
-  <!-- <script src="../deps/game-base/deps/whiplash/lib/phaser.min.js"></script> -->
-  <script src="../deps/whiplash/deps/phaser.js"></script>
+  <script src="../deps/whiplash/deps/phaser.min.js"></script>
+  <!-- <script src="../deps/whiplash/deps/phaser.js"></script> -->
   <script src="../deps/whiplash/deps/jquery-3.3.1.min.js"></script>
+  <script src="../deps/whiplash/deps/jquery-ui.min.js"></script>
   <style>
     html,
     body {
@@ -19,6 +19,7 @@
 
     body {
       background-color: #2f471f;
+      background-color: black;
     }
 
     .root,
@@ -63,7 +64,7 @@
       position: absolute;
       background: url("../data/ui/title.webp") no-repeat center/contain;
       transform: translate(-50%, -50%);
-      top: 10%;
+      top: 20%;
       left: 50%;
       width: 50%;
       height: 20%;
@@ -73,7 +74,7 @@
       position: absolute;
       background: url("../data/ui/play.webp") no-repeat center/contain;
       transform: translate(-50%, -50%);
-      top: 50%;
+      top: 70%;
       left: 50%;
       width: 50%;
       height: 20%;

@@ -128,12 +128,12 @@ class Factory {
 
     static public function createCamera() {
         var e = new Entity();
+        e.name = "camera";
         e.add(new Transform());
         e.add(new Camera(0, 0, Config.screenWidth, Config.screenHeight));
         e.add(new whiplash.platformer.Camera());
         e.get(Camera).setBackgroundColor("#2f471f");
         e.get(whiplash.platformer.Camera).maxY = 64;
-        untyped window.c = e.get(Camera);
         return e;
     }
 

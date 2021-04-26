@@ -15,6 +15,8 @@ import whiplash.phaser.*;
 import whiplash.common.components.Active;
 
 class Game extends Application {
+    static public var instance:Game;
+
     public function new() {
         var config = {
             render:{
@@ -41,30 +43,13 @@ class Game extends Application {
 
         whiplash.platformer.Lib.init(this);
 
-        var e = Factory.createParallax("bg1", 0.1, 0.5);
-        e.get(whiplash.platformer.Parallax).offset.y = 300;
-        engine.addEntity(e);
-        var e = Factory.createParallax("bg1", 0.5);
-        e.get(whiplash.platformer.Parallax).offset.y = 256;
-        engine.addEntity(e);
-
-        var e = Factory.createObjectHandler();
-        engine.addEntity(e);
-
-        var e = Factory.createLevel(0, true, 10);
-        engine.addEntity(e);
-        var player = Factory.createPlayer();
-        engine.addEntity(player);
-        var e = Factory.createLevel(1, false, 10);
-        engine.addEntity(e);
-
-        var e = Factory.createCamera();
-        engine.addEntity(e);
+        var menuState = createState("menu");
+        menuState.addInstance(new game.MenuSystem());
 
         var ingameState = createState("ingame");
+        ingameState.addInstance(new game.LevelLoaderSystem());
         ingameState.addInstance(new game.BounceSystem());
 
-        changeState("ingame");
 
         {
             createUiState("menu", ".menu");
@@ -73,9 +58,15 @@ class Game extends Application {
             changeUiState("menu");
         }
 
+        changeState("menu");
+    }
+
+    override function initPages() {
+        pages = js.uipages.Lib.createGroup(new JQuery(".pages"), "fade", "fade");
+        pages.showPage(".default");
     }
 
     static function main():Void {
-        new Game();
+        instance = new Game();
     }
 }
