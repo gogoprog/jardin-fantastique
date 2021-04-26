@@ -133,7 +133,7 @@ class Factory {
         e.add(new Camera(0, 0, Config.screenWidth, Config.screenHeight));
         e.add(new whiplash.platformer.Camera());
         e.get(Camera).setBackgroundColor("#2f471f");
-        e.get(whiplash.platformer.Camera).maxY = 64;
+        e.get(whiplash.platformer.Camera).maxY = 464;
         return e;
     }
 
