@@ -70,7 +70,7 @@ class Factory {
 
     static public function createObjectEntity(obj, props):Entity {
         var e = new Entity();
-        var transform = new Transform(obj.x + tilemap.tileWidth / 2, 360 + obj.y - tilemap.tileHeight / 2);
+        var transform = new Transform(obj.x, 360 + obj.y);
         e.add(transform);
         return e;
     }
@@ -82,6 +82,11 @@ class Factory {
                 var e = createObjectEntity(obj, props);
                 objectHandlers[cast props.entity](e, obj, props);
                 whiplash.Lib.ashEngine.addEntity(e);
+
+                if(e.get(Sprite) != null) {
+                    e.get(Transform).position.y -= e.get(Sprite).displayHeight / 2;
+                    e.get(Transform).position.x += e.get(Sprite).displayWidth / 2;
+                }
             }
 
             return true;
@@ -155,6 +160,11 @@ class Factory {
     },
     "coffre" => function(e, obj, props) {
         e.add(new Sprite("coffre"));
+        e.get(Sprite).setDepth(8);
+        return e;
+    },
+    "door" => function(e, obj, props) {
+        e.add(new Sprite("porte"));
         e.get(Sprite).setDepth(8);
         return e;
     }
