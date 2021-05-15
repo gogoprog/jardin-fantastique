@@ -50,12 +50,14 @@ class Game extends Application {
         ingameState.addInstance(new game.LevelLoaderSystem());
         ingameState.addInstance(new game.BounceSystem());
 
-
         {
+            createUiState("empty", ".empty");
+            createUiState("intro", ".intro");
+            createUiState("intro2", ".intro2");
             createUiState("menu", ".menu");
             createUiState("hud", ".hud");
 
-            changeUiState("menu");
+            changeUiState("empty");
         }
 
         changeState("menu");
@@ -63,7 +65,32 @@ class Game extends Application {
 
     override function initPages() {
         pages = js.uipages.Lib.createGroup(new JQuery(".pages"), "fade", "fade");
-        pages.showPage(".default");
+        new JQuery(".loading span").text('Cliquez pour continuer');
+        new JQuery(".loading").one("click", function() {
+            intro();
+        });
+    }
+
+    private function intro() {
+        whiplash.AudioManager.playSound("magic");
+        new JQuery(".loading").hide('fade');
+        delay(function() {
+            changeUiState("intro");
+            delay(function() {
+                changeUiState("empty");
+                delay(function() {
+                    whiplash.AudioManager.playSound("tinkle");
+                    changeUiState("intro2");
+                    delay(function() {
+                        changeUiState("empty");
+                        delay(function() {
+                            whiplash.AudioManager.playSound("magic2");
+                            changeUiState("menu");
+                        }, 2);
+                    }, 3);
+                }, 2);
+            }, 3);
+        }, 2.5);
     }
 
     static function main():Void {

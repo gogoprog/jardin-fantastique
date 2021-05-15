@@ -24,7 +24,8 @@
 
     .root,
     .pages,
-    .pages>div {
+    .pages>div,
+    .fullscreen {
       width: 100%;
       height: 100%;
       position: absolute;
@@ -39,8 +40,8 @@
       max-width: 160vh;
       max-height: 62.5vw;
       transform: translate(-50%, -50%);
-      top:50%;
-      left:50%;
+      top: 50%;
+      left: 50%;
     }
 
     .pages>div {
@@ -60,6 +61,26 @@
       left: 0;
     }
 
+    .intro .present {
+      position: absolute;
+      background: url("../data/ui/present.webp") no-repeat center/contain;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      left: 50%;
+      width: 80%;
+      height: 60%;
+    }
+
+    .intro2 .title {
+      position: absolute;
+      background: url("../data/ui/title.webp") no-repeat center/contain;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      left: 50%;
+      width: 80%;
+      height: 60%;
+    }
+
     .menu .title {
       position: absolute;
       background: url("../data/ui/title.webp") no-repeat center/contain;
@@ -68,6 +89,7 @@
       left: 50%;
       width: 50%;
       height: 20%;
+      animation: MoveUpDown 2s ease-in-out infinite;
     }
 
     .menu .play {
@@ -78,13 +100,45 @@
       left: 50%;
       width: 50%;
       height: 20%;
+      animation: MoveUpDown 2s ease-in-out infinite;
+    }
+
+    .loading {
+      background: black;
+      font-size: 48px;
+      z-index: 1;
+    }
+
+    .loading span {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+    }
+
+    @keyframes MoveUpDown {
+      0%,
+      100% {
+        transform: translate(-50%, -45%);
+      }
+
+      50% {
+        transform: translate(-50%, -55%);
+      }
     }
   </style>
 </head>
 
 <body>
+  <div class="fullscreen loading"><span>&#9676;</span></div>
   <div class="root">
     <div class="pages">
+      <div class="empty"></div>
+      <div class="intro">
+        <div class="present"></div>
+      </div>
+      <div class="intro2">
+        <div class="title"></div>
+      </div>
       <div class="menu">
         <div class="title"></div>
         <div class="play"></div>
