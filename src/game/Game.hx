@@ -64,7 +64,12 @@ class Game extends Application {
     }
 
     override function initPages() {
-        pages = js.uipages.Lib.createGroup(new JQuery(".pages"), "fade", "fade");
+        pages = js.uipages.Lib.createGroup(
+                    new JQuery(".pages"),
+        {effect:"fade", duration:1500},
+        {effect:"fade", duration:1500}
+                );
+
         new JQuery(".loading span").text('Cliquez pour continuer');
         new JQuery(".loading").one("click", function() {
             intro();
@@ -79,12 +84,12 @@ class Game extends Application {
             delay(function() {
                 changeUiState("empty");
                 delay(function() {
-                    whiplash.AudioManager.playSound("tinkle");
+                    whiplash.AudioManager.playSound("magic4");
                     changeUiState("intro2");
                     delay(function() {
                         changeUiState("empty");
                         delay(function() {
-                            whiplash.AudioManager.playSound("magic2");
+                            whiplash.AudioManager.playSound("magic3");
                             changeUiState("menu");
                         }, 2);
                     }, 3);
