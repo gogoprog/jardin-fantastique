@@ -10,6 +10,8 @@ class MenuSystem extends whiplash.UiSystem {
     public function new() {
         super();
         set(".menu .play", "click", function() {
+            whiplash.AudioManager.playMusic("music", 0.6);
+            whiplash.AudioManager.playSound("magic-play");
             Game.instance.changeState("ingame");
             Game.instance.changeUiState("hud");
         });
