@@ -46,6 +46,9 @@ class Game extends Application {
         var menuState = createState("menu");
         menuState.addInstance(new game.MenuSystem());
 
+        var fadeState = createState("fade");
+        fadeState.addInstance(new game.FadeSystem());
+
         var ingameState = createState("ingame");
         ingameState.addInstance(new game.LevelLoaderSystem());
         ingameState.addInstance(new game.BounceSystem());
@@ -56,6 +59,7 @@ class Game extends Application {
             createUiState("intro2", ".intro2");
             createUiState("menu", ".menu");
             createUiState("hud", ".hud");
+            createUiState("black", ".black");
 
             changeUiState("empty");
         }
@@ -69,7 +73,6 @@ class Game extends Application {
         {effect:"fade", duration:1500},
         {effect:"fade", duration:1500}
                 );
-
         new JQuery(".loading span").text('Cliquez pour continuer');
         new JQuery(".loading").one("click", function() {
             intro();
@@ -96,6 +99,17 @@ class Game extends Application {
                 }, 2);
             }, 3);
         }, 2.5);
+    }
+
+    public function fadeToGame() {
+        whiplash.AudioManager.playMusic("music", 0.6);
+        whiplash.AudioManager.playSound("magic-play");
+        FadeSystem.instance.setCallback(function() {
+            Game.instance.changeState("ingame");
+            Game.instance.changeUiState("hud");
+        });
+
+        changeState("fade");
     }
 
     static function main():Void {
