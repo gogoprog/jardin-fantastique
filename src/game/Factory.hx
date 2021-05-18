@@ -157,6 +157,11 @@ class Factory {
     "key" => function(e, obj, props) {
         e.add(new Sprite("keyh"));
         e.add(new Bounce());
+        e.add(new whiplash.platformer.Item("key", function(e) { trace("keypick"); }));
+        var box = new whiplash.platformer.Box();
+        box.size.setTo(32, 32);
+        box.offset.setTo(0, 0);
+        e.add(box);
     },
     "coffre" => function(e, obj, props) {
         e.add(new Sprite("coffre"));
