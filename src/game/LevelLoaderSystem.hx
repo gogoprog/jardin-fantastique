@@ -1,31 +1,38 @@
 package game;
 
 import ash.core.Engine;
+import whiplash.phaser.Transform;
+import whiplash.math.Vector2;
 
 class LevelLoaderSystem extends ash.core.System {
+    var engine:Engine;
+
     public function new() {
         super();
     }
 
     public override function addToEngine(engine:Engine) {
+        this.engine = engine;
         super.addToEngine(engine);
         engine.removeAllEntities();
-        var e = Factory.createParallax("bg1", 0.1, 0.5, 0x333311);
-        e.get(whiplash.platformer.Parallax).offset.y = 300;
-        engine.addEntity(e);
-        var e = Factory.createParallax("bg1", 0.5);
-        e.get(whiplash.platformer.Parallax).offset.y = 456;
-        engine.addEntity(e);
-        var e = Factory.createObjectHandler();
-        engine.addEntity(e);
-        var e = Factory.createLevel(0, true, 10);
-        engine.addEntity(e);
-        var player = Factory.createPlayer();
-        engine.addEntity(player);
-        var e = Factory.createLevel(1, false, 10);
-        engine.addEntity(e);
-        var e = Factory.createCamera();
-        engine.addEntity(e);
+        {
+            var e = Factory.createParallax("bg1", 0.1, 0.5, 0x333311);
+            e.get(whiplash.platformer.Parallax).offset.y = 300;
+            engine.addEntity(e);
+            var e = Factory.createParallax("bg1", 0.5);
+            e.get(whiplash.platformer.Parallax).offset.y = 456;
+            engine.addEntity(e);
+        }
+        {
+            addZone(new Vector2(0, 360));
+            // addZone(new Vector2(-1000, 0));
+        }
+        {
+            var player = Factory.createPlayer();
+            engine.addEntity(player);
+            var e = Factory.createCamera();
+            engine.addEntity(e);
+        }
     }
 
     public override function removeFromEngine(engine:Engine) {
@@ -33,6 +40,18 @@ class LevelLoaderSystem extends ash.core.System {
     }
 
     public override function update(dt) {
+    }
+
+    public function addZone(offset:Vector2) {
+        var e = Factory.createLevel(0, true, 10);
+        e.get(Transform).position += offset;
+        engine.addEntity(e);
+        var e = Factory.createLevel(1, false, 10);
+        e.get(Transform).position += offset;
+        engine.addEntity(e);
+        var e = Factory.createObjectHandler();
+        e.get(Transform).position += offset;
+        engine.addEntity(e);
     }
 }
 

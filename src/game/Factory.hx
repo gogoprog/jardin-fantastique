@@ -59,7 +59,6 @@ class Factory {
         e.add(new TilemapLayer(tilemap, layer, tilemap.tilesets));
         e.get(TilemapLayer).setDepth(depth);
         e.add(new Transform());
-        e.get(Transform).position.y = 360;
 
         if(collision) {
             e.add(new whiplash.platformer.WorldCollision());
@@ -68,29 +67,10 @@ class Factory {
         return e;
     }
 
-    static public function createObjectEntity(obj, props):Entity {
-        var e = new Entity();
-        var transform = new Transform(obj.x, 360 + obj.y);
-        e.add(transform);
-        return e;
-    }
-
     static public function createObjectHandler() {
         var e = new Entity();
-        e.add(new whiplash.platformer.WorldObjectHandler(tilemap.objects, function(obj, props) {
-            if(props.entity) {
-                var e = createObjectEntity(obj, props);
-                objectHandlers[cast props.entity](e, obj, props);
-                whiplash.Lib.ashEngine.addEntity(e);
-
-                if(e.get(Sprite) != null) {
-                    e.get(Transform).position.y -= e.get(Sprite).displayHeight / 2;
-                    e.get(Transform).position.x += e.get(Sprite).displayWidth / 2;
-                }
-            }
-
-            return true;
-        }, 1024));
+        e.add(new Transform());
+        e.add(new whiplash.platformer.WorldObjectHandler(tilemap.objects, 1024));
         return e;
     }
 
@@ -152,26 +132,4 @@ class Factory {
         e.get(Transform).scale.setTo(scale, scale);
         return e;
     }
-
-    static private var objectHandlers:Map<String, Entity->Dynamic->Dynamic->Void> = [
-    "key" => function(e, obj, props) {
-        e.add(new Sprite("keyh"));
-        e.add(new Bounce());
-        e.add(new whiplash.platformer.Item("key", function(e) { trace("keypick"); }));
-        var box = new whiplash.platformer.Box();
-        box.size.setTo(32, 32);
-        box.offset.setTo(0, 0);
-        e.add(box);
-    },
-    "coffre" => function(e, obj, props) {
-        e.add(new Sprite("coffre"));
-        e.get(Sprite).setDepth(8);
-        return e;
-    },
-    "door" => function(e, obj, props) {
-        e.add(new Sprite("porte"));
-        e.get(Sprite).setDepth(8);
-        return e;
-    }
-            ];
 }

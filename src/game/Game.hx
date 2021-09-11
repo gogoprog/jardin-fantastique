@@ -52,6 +52,7 @@ class Game extends Application {
         var ingameState = createState("ingame");
         ingameState.addInstance(new game.LevelLoaderSystem());
         ingameState.addInstance(new game.BounceSystem());
+        ingameState.addInstance(new game.WorldObjectSystem());
 
         {
             createUiState("empty", ".empty");
@@ -75,7 +76,8 @@ class Game extends Application {
                 );
         new JQuery(".loading span").text('Cliquez pour continuer');
         new JQuery(".loading").one("click", function() {
-            intro();
+            // intro();
+            fadeToGame(); // DEBUG
         });
     }
 
@@ -102,6 +104,7 @@ class Game extends Application {
     }
 
     public function fadeToGame() {
+        new JQuery(".loading").hide();
         whiplash.AudioManager.playMusic("music", 0.6);
         whiplash.AudioManager.playSound("magic-play");
         FadeSystem.instance.setCallback(function() {
