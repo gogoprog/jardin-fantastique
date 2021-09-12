@@ -24,8 +24,8 @@ class LevelLoaderSystem extends ash.core.System {
             engine.addEntity(e);
         }
         {
-            addZone(new Vector2(0, 360));
-            // addZone(new Vector2(-1000, 0));
+            addZone('level', new Vector2(0, 360));
+            addZone('level', new Vector2(-3000, 360));
         }
         {
             var player = Factory.createPlayer();
@@ -42,14 +42,15 @@ class LevelLoaderSystem extends ash.core.System {
     public override function update(dt) {
     }
 
-    public function addZone(offset:Vector2) {
-        var e = Factory.createLevel(0, true, 10);
+    public function addZone(level, offset:Vector2) {
+        var tilemap = Factory.createTilemap(level);
+        var e = Factory.createLevel(tilemap, 0, true, 10);
         e.get(Transform).position += offset;
         engine.addEntity(e);
-        var e = Factory.createLevel(1, false, 10);
+        var e = Factory.createLevel(tilemap, 1, false, 10);
         e.get(Transform).position += offset;
         engine.addEntity(e);
-        var e = Factory.createObjectHandler();
+        var e = Factory.createObjectHandler(tilemap);
         e.get(Transform).position += offset;
         engine.addEntity(e);
     }

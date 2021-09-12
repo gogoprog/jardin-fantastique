@@ -6,17 +6,10 @@ import whiplash.math.*;
 import whiplash.platformer.Character;
 
 class Factory {
-    static var tilemap:phaser.tilemaps.Tilemap;
-
     static public function preload(scene:phaser.Scene) {
     }
 
     static public function init(scene:phaser.Scene) {
-        tilemap = whiplash.Lib.phaserScene.add.tilemap('level');
-        tilemap.addTilesetImage('../textures/grass.png', 'grass');
-        tilemap.addTilesetImage('../textures/ground.png', 'ground');
-        tilemap.addTilesetImage('../textures/plainground.png', 'plainground');
-        untyped window.t = tilemap;
         scene.anims.create({
             key: 'hero_idle',
             frames: [
@@ -54,7 +47,15 @@ class Factory {
         return e;
     }
 
-    static public function createLevel(layer, collision:Bool, depth:Int) {
+    static public function createTilemap(level) {
+        var tilemap = whiplash.Lib.phaserScene.add.tilemap(level);
+        tilemap.addTilesetImage('../textures/grass.png', 'grass');
+        tilemap.addTilesetImage('../textures/ground.png', 'ground');
+        tilemap.addTilesetImage('../textures/plainground.png', 'plainground');
+        return tilemap;
+    }
+
+    static public function createLevel(tilemap:phaser.tilemaps.Tilemap, layer, collision:Bool, depth:Int) {
         var e = new Entity();
         e.add(new TilemapLayer(tilemap, layer, tilemap.tilesets));
         e.get(TilemapLayer).setDepth(depth);
@@ -67,7 +68,7 @@ class Factory {
         return e;
     }
 
-    static public function createObjectHandler() {
+    static public function createObjectHandler(tilemap) {
         var e = new Entity();
         e.add(new Transform());
         e.add(new whiplash.platformer.WorldObjectHandler(tilemap.objects, 1024));
