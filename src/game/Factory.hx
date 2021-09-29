@@ -86,12 +86,15 @@ class Factory {
         e.get(Transform).position.x = 300;
         e.get(Transform).scale.setTo(0.3, 0.3);
         e.add(new whiplash.platformer.Input());
+        e.get(whiplash.platformer.Input).keyActionMap.set("Shift", "punch");
+        e.get(whiplash.platformer.Input).keyActionMap.set("Enter", "open");
         var character = new whiplash.platformer.Character();
         e.add(character);
         character.jumpSpeed = -600;
         character.maximumSpeed = 350;
-        character.onAction = function(entity, action) {
-            trace("punch!");
+        character.onAction = function(action, entity) {
+            trace("Action:");
+            trace(action);
         };
         var box = new whiplash.platformer.Box();
         box.size.setTo(100, 378);
@@ -102,6 +105,7 @@ class Factory {
         anims[Idle] = "hero_idle";
         anims[Walk] = "hero_walk";
         anims[Action("punch")] = "hero_punch";
+        anims[Action("open")] = "hero_punch";
         return e;
     }
 

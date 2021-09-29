@@ -50,6 +50,7 @@ class WorldObjectSystem extends ListIteratingSystem<WorldObjectNode> {
 
             case "door":
                 e.add(new Sprite("porte"));
+                e.add(new Door());
                 e.get(Sprite).setDepth(8);
         }
 

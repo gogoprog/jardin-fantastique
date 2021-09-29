@@ -24,8 +24,8 @@ class LevelLoaderSystem extends ash.core.System {
             engine.addEntity(e);
         }
         {
-            addZone('level', new Vector2(0, 360));
-            addZone('level', new Vector2(-3000, 360));
+            addZone('part00', new Vector2(0, 360));
+            addZone('part01', new Vector2(32 * 64, 360));
         }
         {
             var player = Factory.createPlayer();

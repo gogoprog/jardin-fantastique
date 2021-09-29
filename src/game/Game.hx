@@ -53,6 +53,7 @@ class Game extends Application {
         ingameState.addInstance(new game.LevelLoaderSystem());
         ingameState.addInstance(new game.BounceSystem());
         ingameState.addInstance(new game.WorldObjectSystem());
+        ingameState.addInstance(new game.DoorSystem());
 
         {
             createUiState("empty", ".empty");
