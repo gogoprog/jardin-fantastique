@@ -14,8 +14,15 @@ import whiplash.math.*;
 import whiplash.phaser.*;
 import whiplash.common.components.Active;
 
+class Zone {
+    public function new() {};
+    public var entities:Array<Entity> = [];
+}
+
 class Game extends Application {
     static public var instance:Game;
+
+    public var zones:Array<Zone> = [];
 
     public function new() {
         var config = {
@@ -113,6 +120,12 @@ class Game extends Application {
             Game.instance.changeUiState("hud");
         });
         changeState("fade");
+    }
+
+    public function addZone(index:Int) {
+        for(e in zones[index].entities) {
+            engine.addEntity(e);
+        }
     }
 
     static function main():Void {
