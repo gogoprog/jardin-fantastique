@@ -77,7 +77,7 @@ class Game extends Application {
                 );
         new JQuery(".loading span").text('Cliquez pour continuer');
         new JQuery(".loading").one("click", function() {
-            // intro();
+            /* intro(); */
             fadeToGame(); // DEBUG
         });
     }
@@ -112,7 +112,6 @@ class Game extends Application {
             Game.instance.changeState("ingame");
             Game.instance.changeUiState("hud");
         });
-
         changeState("fade");
     }
 

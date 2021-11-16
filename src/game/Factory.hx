@@ -52,6 +52,7 @@ class Factory {
         tilemap.addTilesetImage('../textures/grass.png', 'grass');
         tilemap.addTilesetImage('../textures/ground.png', 'ground');
         tilemap.addTilesetImage('../textures/plainground.png', 'plainground');
+        tilemap.addTilesetImage('tiles', 'tiles');
         return tilemap;
     }
 
