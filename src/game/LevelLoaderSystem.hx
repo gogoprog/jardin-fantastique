@@ -47,12 +47,15 @@ class LevelLoaderSystem extends ash.core.System {
         var tilemap = Factory.createTilemap(level);
         var e = Factory.createLevel(tilemap, 0, true, 10);
         e.get(Transform).position += offset;
+        e.add(new LevelPart());
         zone.entities.push(e);
         var e = Factory.createLevel(tilemap, 1, false, 10);
         e.get(Transform).position += offset;
+        e.add(new LevelPart());
         zone.entities.push(e);
         var e = Factory.createObjectHandler(tilemap);
         e.get(Transform).position += offset;
+        e.add(new LevelPart());
         zone.entities.push(e);
         offset.x += tilemap.width * 64;
     }
