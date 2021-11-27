@@ -7,6 +7,7 @@ import whiplash.phaser.*;
 class DoorNode extends Node<DoorNode> {
     public var transform:Transform;
     public var door:Door;
+    public var sprite:Sprite;
 }
 
 class DoorSystem extends ListIteratingSystem<DoorNode> {
@@ -26,6 +27,17 @@ class DoorSystem extends ListIteratingSystem<DoorNode> {
     }
 
     private function updateNode(node:DoorNode, dt:Float):Void {
+
+        if(Game.instance.tryOpenDoor) {
+            if(node.sprite.texture.key == "porte") {
+                node.sprite.setTexture("porte2");
+            } else {
+                node.sprite.setTexture("porte");
+            }
+
+            whiplash.AudioManager.playSound("door");
+            Game.instance.tryOpenDoor = false;
+        }
     }
 
     private function onNodeAdded(node:DoorNode) {

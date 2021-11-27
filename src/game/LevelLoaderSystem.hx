@@ -65,10 +65,14 @@ class LevelLoaderSystem extends ash.core.System {
         var nparts = 3;
         var offset = new Vector2(0, 360);
 
+        addPart('door00', zone, offset);
+
         for(i in 0 ...10) {
             var r = Std.random(nparts);
             addPart('part0${r}', zone, offset);
         }
+
+        addPart('door00', zone, offset);
 
         Game.instance.zones.push(zone);
     }

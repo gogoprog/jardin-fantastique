@@ -96,6 +96,10 @@ class Factory {
         character.onAction = function(action, entity) {
             trace("Action:");
             trace(action);
+
+            if(action == "open") {
+                Game.instance.tryOpenDoor = true;
+            }
         };
         var box = new whiplash.platformer.Box();
         box.size.setTo(100, 378);
