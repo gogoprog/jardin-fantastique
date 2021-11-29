@@ -80,6 +80,8 @@ class Factory {
         var e = new Entity();
         e.name = "player";
         var sprite = new Sprite("hero_idle");
+        var player = new Player();
+        e.add(player);
         sprite.setDepth(9);
         e.add(sprite);
         e.add(new Transform());
@@ -98,7 +100,7 @@ class Factory {
             trace(action);
 
             if(action == "open") {
-                Game.instance.tryOpenDoor = true;
+                player.tryOpenDoor = true;
             }
         };
         var box = new whiplash.platformer.Box();

@@ -22,7 +22,6 @@ class Zone {
 class Game extends Application {
     static public var instance:Game;
 
-    public var tryOpenDoor = false;
     public var zones:Array<Zone> = [];
 
     public function new() {
