@@ -103,6 +103,13 @@ class Factory {
                 player.tryOpenDoor = true;
             }
         };
+        character.onFall = function() {
+            trace("help");
+            whiplash.AudioManager.playSound("help");
+            var body = sprite.body;
+            body.position.y = 0;
+            body.setVelocityY(-100);
+        };
         var box = new whiplash.platformer.Box();
         box.size.setTo(100, 378);
         box.offset.setTo(115, 80);
