@@ -163,6 +163,7 @@ class Factory {
         var e = new Entity();
         e.add(new Sprite("coffre"));
         e.add(new Transform());
+        e.add(new whiplash.platformer.Bullet());
         return e;
     }
 }
