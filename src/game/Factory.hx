@@ -102,6 +102,10 @@ class Factory {
             if(action == "open") {
                 player.tryOpenDoor = true;
             }
+
+            if(action == "punch") {
+                character.requestedFire = true;
+            }
         };
         character.onFall = function() {
             trace("help");
@@ -110,6 +114,9 @@ class Factory {
             body.position.y = 0;
             body.setVelocityY(-100);
         };
+        character.onCreateBullet = function() {
+            return createBullet();
+        }
         var box = new whiplash.platformer.Box();
         box.size.setTo(100, 378);
         box.offset.setTo(115, 80);
@@ -149,6 +156,13 @@ class Factory {
         e.get(Transform).position.x = -2;
         e.get(TileSprite).tint = tint;
         e.get(Transform).scale.setTo(scale, scale);
+        return e;
+    }
+
+    static public function createBullet() {
+        var e = new Entity();
+        e.add(new Sprite("coffre"));
+        e.add(new Transform());
         return e;
     }
 }

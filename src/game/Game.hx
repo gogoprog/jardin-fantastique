@@ -57,6 +57,7 @@ class Game extends Application {
         fadeState.addInstance(new game.FadeSystem());
 
         var ingameState = createState("ingame");
+
         ingameState.addInstance(new game.LevelLoaderSystem());
         ingameState.addInstance(new game.BounceSystem());
         ingameState.addInstance(new game.WorldObjectSystem());
